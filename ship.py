@@ -85,6 +85,7 @@ tt0_obsv, aa0_obsv = tt0_ship, aa0_ship
 window = app.Window(width=1024, height=1024)
 t_glob = 0.0
 doppler = 0.0
+view_w = 3.5
 
 origin_r = np.array([0.5, 0.5])
 origin_u = np.array([0.0, 1e-5])
@@ -152,7 +153,19 @@ def on_key_release(key, modifiers):
     else:
         print("unknown key:", key)
 
-# rrr_ship = Data()
+@window.event
+def on_mouse_scroll(x, y, dx, dy):
+    global view_w
+    view_w *= 0.8 ** dy
+    program['view_w'] = view_w
+
+# @window.event
+# def on_mouse_motion(x, y, dx, dy):
+#     # global view_w
+#     print(x, y)
+#     # view_w *= 0.8 ** dy
+#     # program['view_w'] = view_w
+
 
 program = gloo.Program("vert.glsl", "frag.glsl", count=4)
 program['time'] = 0.0
@@ -168,7 +181,6 @@ program['time_span'] = time_span
 program['earth_tex'] = np.array(Image.open('antarctica_512.png'))
 program['self_tex'] = np.array(Image.open('self.png'))
 program['doppler'] = doppler
-# program["viewport"] = Viewport()
-# window.attach(program['viewport'])
+program['view_w'] = view_w
 
 app.run()

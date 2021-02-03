@@ -16,11 +16,13 @@ Run `ship.py`. You should get a window like this:
 
 There is a planet, a spaceship, and a light clock. The planet's inertial frame of reference is visualized using a grid. You can use the keyboard to navigate:
 
-W, A, S, D - spaceship acceleration
+**W, A, S, D** - spaceship acceleration
 
-Spacebar - stop the spaceship instantly
+**Spacebar** - stop the spaceship instantly
 
-E - toggle whether to show the plane of simultaneity (default), or the past light cone.
+**E** - toggle whether to show the plane of simultaneity (default), or the past light cone.
+
+**mouse scroll** - zoom in/out
 
 **Plane of simultaneity** is useful to clearly illustrate some special relativity effects. It is not what you would actually see though, because it disregards light travel time. When in this mode, you can notice how:
 
