@@ -86,6 +86,7 @@ window = app.Window(width=1024, height=1024)
 t_glob = 0.0
 doppler = 0.0
 view_w = 3.5
+view_offset = np.array([0.0, 0.0])
 
 origin_r = np.array([0.5, 0.5])
 origin_u = np.array([0.0, 1e-5])
@@ -159,12 +160,14 @@ def on_mouse_scroll(x, y, dx, dy):
     view_w *= 0.8 ** dy
     program['view_w'] = view_w
 
-# @window.event
-# def on_mouse_motion(x, y, dx, dy):
-#     # global view_w
-#     print(x, y)
-#     # view_w *= 0.8 ** dy
-#     # program['view_w'] = view_w
+@window.event
+def on_mouse_motion(x, y, dx, dy):
+    global view_offset
+    # print(x, y)
+    view_offset[0] = (x / window.width * 2 - 1 * 0.9)
+    view_offset[1] = (y / window.height * 2 - 1 * 0.9)
+    # Uncomment to enable view offset controlled by mouse
+    # program['view_offset'] = view_offset
 
 
 program = gloo.Program("vert.glsl", "frag.glsl", count=4)
@@ -182,5 +185,6 @@ program['earth_tex'] = np.array(Image.open('antarctica_512.png'))
 program['self_tex'] = np.array(Image.open('self.png'))
 program['doppler'] = doppler
 program['view_w'] = view_w
+program['view_offset'] = view_offset
 
 app.run()

@@ -12,6 +12,7 @@ uniform float time_span;
 uniform vec4 thursters;
 uniform float doppler;
 uniform float view_w;
+uniform vec2 view_offset;
 
 uniform sampler2D earth_tex;
 uniform sampler2D self_tex;
@@ -133,7 +134,7 @@ void main() {
     vec2 view1 = v_texcoord - vec2(0.0, 0.0);
     vec2 view2 = v_texcoord - o_r.yz / 7.0;
     // vec2 view = v_texcoord.x > 0.5 ? view1 : view2;
-    vec2 pt_o = (view1 * 2.0 - 1.0) * view_w;
+    vec2 pt_o = (view1 * 2.0 - 1.0 + view_offset) * view_w;
     vec3 pt3_o = vec3(0.0 - length(pt_o) * doppler, pt_o);
     vec3 pt3 = inv_lorentz(pt3_o, o_u) + o_r;
 
