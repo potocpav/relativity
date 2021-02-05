@@ -8,9 +8,9 @@ from PIL import Image
 def f_ship(t_ship):
     t = t_ship % 8
     res = np.zeros((len(t_ship), 2))
-    res[t < 2, 0] = 1.0
-    res[(3 <= t) & (t < 5), 0] = -2.0
-    res[(6.5 <= t) & (t < 7.5), 0] = 2.0
+    res[t < 1, 0] = 4.0
+    res[(1 <= t) & (t < 3), 0] = -4.0
+    res[(3 <= t) & (t < 4), 0] = 4.0
     return res
 
 def interpolate(t, tt, rr):
