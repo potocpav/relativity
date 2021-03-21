@@ -4,6 +4,7 @@ import numpy as np
 from glumpy import app, gl, glm, gloo, __version__
 from glumpy.transforms import PanZoom, Position, Viewport
 from PIL import Image
+from collections import deque
 
 def f_ship(t_ship):
     t = t_ship % 8
@@ -66,11 +67,11 @@ def from_proper4(tt_proper, ff_proper, c, u0=None, mass=1):
 # %%
 
 c = 3.0
-time_span = 8 # seconds
 
 dt = 1/60
-tt_ship = np.arange(0, time_span, dt)
-ff_ship = f_ship(tt_ship)
+tt_ship = deque()
+tt_ship.push(0.0)
+ff_ship = np.zeros(2.0)
 
 tt0_ship, uuu_ship, aa0_ship = from_proper4(tt_ship, ff_ship, c)
 

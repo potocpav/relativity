@@ -141,12 +141,15 @@ void main() {
     float i = find_simul(r_ship, u_ship, pt3);
     vec3 r = texture1D(r_ship, i).xyz;
     vec3 u = texture1D(u_ship, i).xyz;
+    vec4 limit_col = i < 0.01 ? vec4(1.0, 0.0, 0.0, 0.5) :
+                     i > 0.99 ? vec4(0.0, 0.0, 1.0, 0.5) :
+                     vec4(0.0);
 
     vec3 r_ship = lorentz(pt3 - r, u);
     // float gamma_ship = u.x / c;
     vec4 c_ship = photon_clock(i * time_span, r_ship.yz, c / 8.0);
     vec4 bg = background(pt3.x / c, pt3.yz);
-    vec4 self = ship(t, pt_o, 0.2);
+    vec4 self = overlay(limit_col, ship(t, pt_o, 0.2));
     vec4 earth_ = earth(pt3.x / c, pt3.yz);
     gl_FragColor = overlay(overlay(self, c_ship), overlay(earth_, bg));
 }
